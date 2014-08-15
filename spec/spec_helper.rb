@@ -1,22 +1,22 @@
 require 'rspec'
 require 'pg'
-require 'tasks'
-require 'lists'
+require 'task'
+require 'list'
+require 'table_butler'
 
 DB = PG.connect({:dbname => 'to_do'})
 
 RSpec.configure do |config|
   config.after(:each) do
-    DB.exec("DELETE FROM tasks *;")
-    DB.exec("DELETE FROM lists *;")
-
+    DB.exec("DELETE FROM task *;")
+    DB.exec("DELETE FROM list *;")
   end
 end
 
 def create_test_objects
-    @test_task = Task.new({'name' => 'learn code'})
-    @test_task.save
     @test_list = List.new({'name' => 'school'})
     @test_list.save
 
+    @test_task = Task.new({'name' => 'learn code', 'list_id' => @test_list.id})
+    @test_task.save
 end
