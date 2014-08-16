@@ -17,6 +17,6 @@ def create_test_objects
     @test_list = List.new({'name' => 'school'})
     @test_list.save
 
-    @test_task = Task.new({'name' => 'learn code', 'list_id' => @test_list.id})
+    @test_task = Task.new({'name' => 'learn code'})
     @test_task.save
 end

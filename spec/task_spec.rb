@@ -15,7 +15,6 @@ describe Task do
 
   it 'should return name and list when asked.' do
     expect(@test_task.name).to eq "learn code"
-    expect(@test_task.list_id).to eq @test_list.id
   end
 
 end
