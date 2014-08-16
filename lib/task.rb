@@ -1,5 +1,4 @@
-require 'pry'
-require 'table_butler'
+require './lib/table_butler'
 
 class Task < Table_Butler
 

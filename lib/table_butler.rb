@@ -1,5 +1,3 @@
-require 'pry'
-
 class Table_Butler
 #This will work as long as your class attribute name is equal to your DB column name
   def initialize(attributes)

@@ -1,6 +1,4 @@
-require 'pry'
-require 'table_butler'
-require 'pg'
+require './lib/table_butler'
 
 class List < Table_Butler
 
