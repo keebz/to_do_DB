@@ -1,6 +1,7 @@
 require 'pg'
 require './lib/task'
 require './lib/list'
+require 'pry'
 
 DB = PG.connect({:dbname => 'to_do'})
 
@@ -24,6 +25,81 @@ selection = gets.chomp
 	end
 end
 
+def create_list
+	puts "Please name your list:"
+	list_name = gets.chomp
+	@current_list = List.new({'name' => list_name})
+	@current_list.save
+	puts @current_list.name + " has been added!"
+	main
+end
+
+def list_lists
+	List.all.each do |list|
+		puts list.name
+	end
+	@id = nil
+	puts "type the name of a list to modify it:"
+	selection = gets.chomp
+	List.all.each do |list|
+		if selection == list.name
+			@id = list.id
+		end
+	end
+	puts "Press [d] to delete this list or [t] to add a task or [l] to list all your tasks:"
+	selection = gets.chomp
+	if selection == 'd'
+		List.all.each do |list|
+			if list.id = @id
+				list.delete
+			end
+		end
+
+		List.all.each do |list|
+		puts list.name
+		end
+		main
+
+	elsif selection == 't'
+		list_choice = nil
+		List.all.each do |list|
+			if list.id = @id
+				list_choice = list.id
+			end
+		end
+		add_task(list_choice)
+		main
+	elsif selection == 'l'
+		list_tasks(list_choice)
+	end
+
+end
+
+def add_task(list_id)
+	puts "Enter a task for your list:"
+	task_input = gets.chomp
+	current_task = Task.new({'name' => task_input})
+	current_task.save
+	List.all.each do |list|
+		if list_id = list.id
+			list.add_task(current_task)
+			list.list_tasks.each_with_index do |task, index|
+				puts (index + 1).to_s + ". " + task.name
+			end
+		end
+	end
+end
+
+def list_tasks(list_id)
+	puts "Here are all over your tasks:"
+	List.all.each do |list|
+		if list_id = list.id
+			list.list_tasks.each_with_index do |task, index|
+				puts (index + 1).to_s + ". " + task.name
+			end
+		end
+	end
+end
 
 
 main
