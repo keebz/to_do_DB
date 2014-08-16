@@ -38,12 +38,13 @@ def list_lists
 	List.all.each do |list|
 		puts list.name
 	end
+
 	@id = nil
 	puts "type the name of a list to modify it:"
-	selection = gets.chomp
-	List.all.each do |list|
-		if selection == list.name
-			@id = list.id
+	name = gets.chomp
+	List.all.each do |selected_list|
+		if name == selected_list.name
+			@id = selected_list.id
 		end
 	end
 	puts "Press [d] to delete this list or [t] to add a task or [l] to list all your tasks:"
@@ -61,40 +62,33 @@ def list_lists
 		main
 
 	elsif selection == 't'
-		list_choice = nil
-		List.all.each do |list|
-			if list.id = @id
-				list_choice = list.id
-			end
-		end
-		add_task(list_choice)
+		add_task(@id)
 		main
 	elsif selection == 'l'
-		list_tasks(list_choice)
+		list_tasks(@id)
+		main
 	end
 
 end
 
-def add_task(list_id)
+def add_task(list_id)	
 	puts "Enter a task for your list:"
 	task_input = gets.chomp
 	current_task = Task.new({'name' => task_input})
 	current_task.save
-	List.all.each do |list|
-		if list_id = list.id
-			list.add_task(current_task)
-			list.list_tasks.each_with_index do |task, index|
-				puts (index + 1).to_s + ". " + task.name
-			end
+	List.all.each do |current_list|
+		if list_id == current_list.id
+			current_list.add_task(current_task)
 		end
 	end
 end
 
 def list_tasks(list_id)
-	puts "Here are all over your tasks:"
-	List.all.each do |list|
-		if list_id = list.id
-			list.list_tasks.each_with_index do |task, index|
+	puts "Here are all of your tasks:"
+	List.all.each do |current_list|
+		if current_list.id == list_id	
+		puts current_list.name + current_list.id.to_s	
+			current_list.list_tasks.each_with_index do |task, index|
 				puts (index + 1).to_s + ". " + task.name
 			end
 		end
