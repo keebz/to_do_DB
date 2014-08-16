@@ -1,7 +1,7 @@
-CD Catalog
-by Anna Valkov and Lee Kebler
+TO DO LIST
+by Lee Kebler
 
-August 4, 2014
+August 15, 2014
 
 About
 
